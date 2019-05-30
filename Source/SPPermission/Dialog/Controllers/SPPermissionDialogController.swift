@@ -108,10 +108,10 @@ public class SPPermissionDialogController: UIViewController {
             view.titleLabel.textColor = self.colorScheme.black
             view.subtitleLabel.textColor = self.colorScheme.gray
             view.separatorView.backgroundColor = self.colorScheme.gray.withAlphaComponent(0.3)
-            view.iconView.whiteColor = self.colorScheme.iconWhite
-            view.iconView.lightColor = self.colorScheme.iconLight
-            view.iconView.mediumColor = self.colorScheme.iconMedium
-            view.iconView.darkColor = self.colorScheme.iconDark
+//            view.iconView.whiteColor = self.colorScheme.iconWhite
+//            view.iconView.lightColor = self.colorScheme.iconLight
+//            view.iconView.mediumColor = self.colorScheme.iconMedium
+//            view.iconView.darkColor = self.colorScheme.iconDark
             view.button.baseColor = self.colorScheme.base
             view.button.secondColor = self.colorScheme.lightGray
             view.button.addTarget(self, action: #selector(self.request(with:)), for: .touchUpInside)

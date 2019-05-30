@@ -82,7 +82,7 @@ class SPPermissionDialogView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
- 
+        
         self.subtitleLabel.frame = CGRect.init(x: self.sideInset, y: 0, width: self.layoutWidth - self.sideInset * 2, height: 0)
         self.subtitleLabel.sizeToFit()
         
@@ -125,7 +125,7 @@ class SPPermissionDialogView: UIView {
             })
             self.layoutHeight = currentYPosition + 2
         }
-
+        
         let shadowPath = UIBezierPath.init(
             roundedRect: CGRect.init(x: 0, y: 9, width: self.layoutWidth, height: self.layoutHeight),
             cornerRadius: self.layer.cornerRadius
@@ -143,8 +143,8 @@ class SPPermissionDialogLineView: UIView {
     
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
-    var iconView = SPPermissionIconView()
-    var imageView = UIImageView()
+    //    var iconView = SPPermissionIconView()
+    //    var imageView = UIImageView()
     var button = SPPermissionActionButton()
     var separatorView = UIView()
     
@@ -160,39 +160,39 @@ class SPPermissionDialogLineView: UIView {
         self.titleLabel.text = title
         self.subtitleLabel.text = subtitle
         
-        self.imageView.isHidden = true
-        
-        if let image = image {
-            self.imageView.contentMode = .scaleAspectFit
-            self.imageView.image = image
-            self.iconView.isHidden = true
-            self.imageView.isHidden = false
-        } else {
-            switch permission {
-            case .calendar:
-                self.iconView.type = .calendar
-            case .camera:
-                self.iconView.type = .camera
-            case .contacts:
-                self.iconView.type = .book
-            case .microphone:
-                self.iconView.type = .micro
-            case .notification:
-                self.iconView.type = .ball
-            case .photoLibrary:
-                self.iconView.type = .photoLibrary
-            case .reminders:
-                self.iconView.type = .documents
-            case .speech:
-                self.iconView.type = .micro
-            case .locationWhenInUse, .locationAlwaysAndWhenInUse:
-                self.iconView.type = .compass
-            case .motion:
-                self.iconView.type = .windmill
-            case .mediaLibrary:
-                self.iconView.type = .headphones
-            }
-        }
+        //        self.imageView.isHidden = true
+        //
+        //        if let image = image {
+        //            self.imageView.contentMode = .scaleAspectFit
+        //            self.imageView.image = image
+        //            self.iconView.isHidden = true
+        //            self.imageView.isHidden = false
+        //        } else {
+        //            switch permission {
+        //            case .calendar:
+        //                self.iconView.type = .calendar
+        //            case .camera:
+        //                self.iconView.type = .camera
+        //            case .contacts:
+        //                self.iconView.type = .book
+        //            case .microphone:
+        //                self.iconView.type = .micro
+        //            case .notification:
+        //                self.iconView.type = .ball
+        //            case .photoLibrary:
+        //                self.iconView.type = .photoLibrary
+        //            case .reminders:
+        //                self.iconView.type = .documents
+        //            case .speech:
+        //                self.iconView.type = .micro
+        //            case .locationWhenInUse, .locationAlwaysAndWhenInUse:
+        //                self.iconView.type = .compass
+        //            case .motion:
+        //                self.iconView.type = .windmill
+        //            case .mediaLibrary:
+        //                self.iconView.type = .headphones
+        //            }
+        //        }
         
         self.commonInit()
     }
@@ -208,8 +208,8 @@ class SPPermissionDialogLineView: UIView {
     private func commonInit() {
         self.backgroundColor = SPPermissionStyle.DefaultColors.white
         
-        self.addSubview(self.imageView)
-        self.addSubview(self.iconView)
+        //        self.addSubview(self.imageView)
+        //        self.addSubview(self.iconView)
         
         self.titleLabel.numberOfLines = 1
         self.titleLabel.textColor = SPPermissionStyle.DefaultColors.black
@@ -245,38 +245,72 @@ class SPPermissionDialogLineView: UIView {
         }
     }
     
+    /*
+     * Iconed
+     override func layoutSubviews() {
+     super.layoutSubviews()
+     
+     self.frame = CGRect.init(origin: self.frame.origin, size: CGSize.init(width: self.frame.width, height: 79))
+     
+     self.iconView.frame = CGRect.init(x: 0, y: 0, width: 45, height: 45)
+     self.iconView.center.y = self.frame.height / 2
+     
+     self.imageView.frame = self.iconView.frame
+     
+     self.button.sizeToFit()
+     self.button.frame.origin.x = self.frame.width - self.button.frame.width
+     self.button.center.y = self.frame.height / 2
+     
+     let titleInset: CGFloat = 15
+     let titlesWidth: CGFloat = self.button.frame.origin.x - (self.iconView.frame.origin.x + self.iconView.frame.width)  - titleInset * 2
+     
+     self.titleLabel.frame = CGRect.init(x: 0, y: 8, width: titlesWidth, height: 0)
+     self.titleLabel.sizeToFit()
+     self.titleLabel.frame = CGRect.init(origin: self.titleLabel.frame.origin, size: CGSize.init(width: titlesWidth, height: self.titleLabel.frame.height))
+     self.titleLabel.frame.origin.x = (self.iconView.frame.origin.x + self.iconView.frame.width) + titleInset
+     
+     self.subtitleLabel.frame = CGRect.init(x: self.titleLabel.frame.origin.x + titleInset, y: 0, width: titlesWidth, height: 0)
+     self.subtitleLabel.sizeToFit()
+     self.subtitleLabel.frame = CGRect.init(origin: self.subtitleLabel.frame.origin, size: CGSize.init(width: titlesWidth, height: self.subtitleLabel.frame.height))
+     self.subtitleLabel.frame.origin.x = self.iconView.frame.origin.x + self.iconView.frame.width + titleInset
+     
+     let allHeight = self.titleLabel.frame.height + 2 + self.subtitleLabel.frame.height
+     self.titleLabel.frame.origin.y = (self.frame.height - allHeight) / 2
+     self.subtitleLabel.frame.origin.y = self.titleLabel.frame.origin.y + self.titleLabel.frame.height + 2
+     
+     self.separatorView.frame = CGRect.init(x: self.subtitleLabel.frame.origin.x, y: self.frame.height - 0.7, width: self.button.frame.origin.x + self.button.frame.width - self.subtitleLabel.frame.origin.x, height: 0.7)
+     self.separatorView.layer.cornerRadius = self.separatorView.frame.height / 2
+     }
+     */
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         self.frame = CGRect.init(origin: self.frame.origin, size: CGSize.init(width: self.frame.width, height: 79))
         
-        self.iconView.frame = CGRect.init(x: 0, y: 0, width: 45, height: 45)
-        self.iconView.center.y = self.frame.height / 2
-        
-        self.imageView.frame = self.iconView.frame
-        
         self.button.sizeToFit()
         self.button.frame.origin.x = self.frame.width - self.button.frame.width
         self.button.center.y = self.frame.height / 2
         
-        let titleInset: CGFloat = 15
-        let titlesWidth: CGFloat = self.button.frame.origin.x - (self.iconView.frame.origin.x + self.iconView.frame.width)  - titleInset * 2
+        let titleInset: CGFloat = 0
+        let titlesWidth: CGFloat = self.button.frame.origin.x - titleInset * 2
         
         self.titleLabel.frame = CGRect.init(x: 0, y: 8, width: titlesWidth, height: 0)
         self.titleLabel.sizeToFit()
         self.titleLabel.frame = CGRect.init(origin: self.titleLabel.frame.origin, size: CGSize.init(width: titlesWidth, height: self.titleLabel.frame.height))
-        self.titleLabel.frame.origin.x = (self.iconView.frame.origin.x + self.iconView.frame.width) + titleInset
+        self.titleLabel.frame.origin.x = titleInset
         
         self.subtitleLabel.frame = CGRect.init(x: self.titleLabel.frame.origin.x + titleInset, y: 0, width: titlesWidth, height: 0)
         self.subtitleLabel.sizeToFit()
         self.subtitleLabel.frame = CGRect.init(origin: self.subtitleLabel.frame.origin, size: CGSize.init(width: titlesWidth, height: self.subtitleLabel.frame.height))
-        self.subtitleLabel.frame.origin.x = self.iconView.frame.origin.x + self.iconView.frame.width + titleInset
+        self.subtitleLabel.frame.origin.x = titleInset
         
         let allHeight = self.titleLabel.frame.height + 2 + self.subtitleLabel.frame.height
         self.titleLabel.frame.origin.y = (self.frame.height - allHeight) / 2
         self.subtitleLabel.frame.origin.y = self.titleLabel.frame.origin.y + self.titleLabel.frame.height + 2
-
+        
         self.separatorView.frame = CGRect.init(x: self.subtitleLabel.frame.origin.x, y: self.frame.height - 0.7, width: self.button.frame.origin.x + self.button.frame.width - self.subtitleLabel.frame.origin.x, height: 0.7)
         self.separatorView.layer.cornerRadius = self.separatorView.frame.height / 2
     }
+    
 }
